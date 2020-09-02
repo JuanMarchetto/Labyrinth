@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Matrix from 'matrix-component';
-import { Position } from '../constants';
+import { Position } from '../../constants';
 
 export interface Props {
   targetPosition: Position;
@@ -26,13 +26,24 @@ const Labyrinth = (props: Props) => {
     };
   }, [handleUserKeyPress]);
 
+  const matchPosition = (cell: Position, position: Position) => position[0] === cell[0] && position[1] === cell[1];
+  const isPlayerPosition = (cell: Position, playerPosition: Position) => matchPosition(playerPosition, cell);
+  const isTargetPosition = (cell: Position, targetPosition: Position) => matchPosition(targetPosition, cell);
+  
+  const available = { classes: 'bg-White border' };
+  const wall =  { classes: 'bg-gray border' };
+  const finish = { classes: 'bg-green border' }
+  const player = { classes: 'ball ball-green border' };
+  const target = { classes: 'ball ball-white bg-green border' };
+
   const list = availableCells.map(
     (row, rowIndex) => row.map(
       (cell, cellIndex) => {
-        if (position[0] === rowIndex && position[1] === cellIndex) return { classes: 'player' };
-        if (targetPosition[0] === rowIndex && targetPosition[1] === cellIndex) return { classes: 'target' };
-        if (cell === 1) return { classes: 'available' };
-        return { classes: 'wall' };
+        if (isPlayerPosition([rowIndex,cellIndex],position) && isTargetPosition([rowIndex,cellIndex],targetPosition)) return finish;
+        if (isPlayerPosition([rowIndex,cellIndex],position)) return player;
+        if (isTargetPosition([rowIndex,cellIndex],targetPosition)) return target;
+        if (cell === 1) return available
+        return wall ;
       },
     ),
   );

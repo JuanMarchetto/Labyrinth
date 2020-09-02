@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useCallback }  from "react";
 import { GAME_STATUS, ARROW, Position } from './constants';
-import { Labyrinth } from "./labyrinth";
+import { Labyrinth } from "./components/labyrinth";
+import {LevelBuilder} from "./components/levelBuilder";
+
+const Button = ({handleOnClick, text}: {handleOnClick :any, text :String}) => (
+  <button onClick={handleOnClick} type="button">{text}</button>
+)
 
 function App() {
   const [moves, setMoves] = useState(0);
@@ -21,6 +26,11 @@ function App() {
   const cellSize=30;
   const [moveLimit, setMoveLimit]=useState(25);
   const [position, setPosition] = useState(startingPosition);
+
+  const handleStartingPosition = (position: Position) =>{
+    setStartingPosition(position);
+    setPosition(position);
+  }
 
   const reset=()=>{
     setMoves(0);
@@ -46,8 +56,8 @@ function App() {
     }
   }, [gameStatus, moveLimit, moves, position, targetPosition]);
   
-  useEffect(()=>{checkGameStatus();},[checkGameStatus, position]);
-  useEffect(()=>{},[moveLimit,targetPosition,startingPosition]);
+  useEffect(()=>{checkGameStatus()},[checkGameStatus, position]);
+  useEffect(()=>{},[moveLimit,targetPosition,startingPosition, availableCells]);
 
   const moveTo = useCallback((position: Position) => {
     setPosition(position);
@@ -71,7 +81,6 @@ function App() {
     }
   }, [availableCells, moveTo, position]);
   
-  
   const handleUserKeyPress = useCallback((event: any) => {
     const { key } = event;
     if (gameStatus === GAME_STATUS.PLAYING && Object.values(ARROW).indexOf(key) > -1) {
@@ -79,76 +88,22 @@ function App() {
     }
   }, [changePosition, gameStatus]);
 
-
     return (
       <>
       {gameStatus === GAME_STATUS.EDIT &&
-        (
-          <div className={'edit'}>
-            <strong>Size</strong>
-            <label>
-              Rows:
-              <input
-                type="number"
-                value={5}
-                onChange={() => alert("TODO")}
-              />
-            </label>
-            <label>
-              Cells:
-              <input
-                type="number"
-                value={5}
-                onChange={() => () => alert("TODO")}
-              />
-            </label>
-            <strong>Start</strong>
-            <label>
-              R:
-              <input
-                type="number"
-                value={startingPosition[0]}
-                onChange={e => setStartingPosition([parseInt(e.target.value),startingPosition[1]])}
-              />
-            </label>
-            <label>
-              C:
-              <input
-                type="number"
-                value={startingPosition[1]}
-                onChange={e => setStartingPosition([startingPosition[0],parseInt(e.target.value)])}
-              />
-            </label>
-            <strong>End</strong>
-            <label>
-              R:
-              <input
-                type="number"
-                value={targetPosition[0]}
-                onChange={e => setTargetPosition([parseInt(e.target.value),targetPosition[1]])}
-              />
-            </label>
-            <label>
-              C:
-              <input
-                type="number"
-                value={targetPosition[1]}
-                onChange={e => setTargetPosition([targetPosition[0],parseInt(e.target.value)])}
-              />
-            </label>
-            <label>
-              Max Moves:
-              <input
-                type="number"
-                value={moveLimit}
-                onChange={e => setMoveLimit(parseInt(e.target.value))}
-              />
-            </label>
-            {/*TODO: WALL/EMPTY SELECTOR*/}
-            <button onClick={start} type="button">Play Again!</button>
-          </div>
-            
-        )
+      <>
+        <LevelBuilder 
+          targetPosition={targetPosition}
+          availableCells={availableCells}
+          startingPosition={startingPosition}
+          setMoveLimit={ setMoveLimit}
+          moveLimit={moveLimit}
+          handleStartingPosition={handleStartingPosition}
+          setAvailableCells={setAvailableCells}
+          setTargetPosition={setTargetPosition}
+        />
+              <Button handleOnClick={start} text={'Play Again!'}/>
+</>
       }
       <Labyrinth
         targetPosition={targetPosition}
@@ -166,8 +121,8 @@ function App() {
                 YOU LOSE
                 !
               </h2>
-              <button onClick={start} type="button">Play Again!</button>
-              <button onClick={edit} type="button">Level Builder</button>
+              <Button handleOnClick={start} text={'Play Again!'}/>
+              <Button handleOnClick={edit} text={'Level Builder'}/>
             </div>
             )
         }
@@ -177,8 +132,8 @@ function App() {
               <h2>
                 YOU WIN!
               </h2>
-              <button onClick={start} type="button">Play Again!</button>
-              <button onClick={edit} type="button">Level Builder</button>
+              <Button handleOnClick={start} text={'Play Again!'}/>
+              <Button handleOnClick={edit} text={'Level Builder'}/>
             </div>
             )
         }

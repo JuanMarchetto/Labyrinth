@@ -1,8 +1,8 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 
-import { Labyrinth } from "./labyrinth";
-import { Props } from "./labyrinth/labyrinth";
+import { Labyrinth } from "./components/labyrinth";
+import { Props } from "./components/labyrinth/labyrinth";
 
 describe("Labyrinth", () => {
   let props: Props;

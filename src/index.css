@@ -1,104 +1,117 @@
 html, body {
-    overflow: hidden;
-  }
-  body {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
-    margin: 0;
-    padding: 0;
-  }
+  overflow: hidden;
+}
+
+body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
   
-  main {
-    height: 90vmin;
-    width: 90vmin;
-    margin: auto;
-  }
+main {
+  height: 90vmin;
+  width: 90vmin;
+  margin: auto;
+}
   
-  .available, .wall, .player, .target{
-    border: solid 1px black;
-  }
+.border{
+  border: solid 1px black;
+}
   
-  .wall{
-    background-color: #ccc;
-  }
+.bg-gray{
+  background-color: #ccc;
+}
   
-  .target{
-    background-color: green;
-  }
+.target{
+  background-color: green;
+}
   
-  .player{
-    background-color: yellow;
-    position: relative;
-  }
+.ball{
+  position: relative;
+}
   
-  .player::before{
-    display: block;
-    height: 50%;
-    width: 50%;
-    position: absolute;
-    top: calc(25% - 4px);
-    left: calc(25% - 4px);
-    content: "";
-    border: 4px solid black;
-    border-radius: 50%;
-    background-color: white;
-  }
+.ball::before{
+  display: block;
+  height: 50%;
+  width: 50%;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  content: "";
+  border-radius: 50%;
+}
+
+.ball-green::before{
+  background-color: green;
+}
+
+.ball-white::before{
+  background-color: white;
+}
   
-  .modal{
-    position: absolute;
-    align-content: center;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vw;
-    background-color: black;
-    background-color: rgba(0,0,0,0.75);
-  }
+.modal{
+  position: absolute;
+  align-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vw;
+  background-color: black;
+  background-color: rgba(0,0,0,0.75);
+}
   
-  .modal *{
-    display: block;
-    margin:auto;
-    text-align: center;
-    font-weight: bolder;
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.modal *{
+  display: block;
+  margin:auto;
+  text-align: center;
+  font-weight: bolder;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   
-  .modal h2{
-    font-size: 4rem;
-  }
+.modal h2{
+  font-size: 4rem;
+}
   
-  .modal button{
-    font-size: 2rem;
-    border-radius: 1rem;
-    background-color: green;
-    color: white;
-  }
+button{
+  font-size: 2rem;
+  border-radius: 1rem;
+  background-color: green;
+  color: white;
+}
   
-  .green{
-    color: green;
-  }
+.green{
+  color: green;
+}
   
-  .red{
-    color: red;
-  }
+.red{
+  color: red;
+}
   
-  .moves{
-    display: block;
-    width: 100%;
-    text-align: right;
-    text-transform: capitalize;
-    margin: auto;
-    font-size: 1.5rem;
-    font-weight: bolder;
-  }
+.moves{
+  display: block;
+  width: 100%;
+  text-align: right;
+  text-transform: capitalize;
+  margin: auto;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
   
-  .moves span{
-    margin-left: 1rem;
-  }
+.moves span{
+  margin-left: 1rem;
+}
   
+.bg-green{
+  background-color: green;
+}
+
+.bg-white{
+  background-color: green;
+}
